@@ -1,26 +1,17 @@
 module Day01 where
 
+import Common
 import Data.Char
 import Text.ParserCombinators.Parsec(Parser, ParseError)
-import Text.Parsec(parse, many1, digit )
-import System.FilePath
-import System.Directory
+import Text.Parsec(many1, digit )
 
 -- Parsing
-
-readData :: IO String
-readData =
-  flip combine "data\\Day01.txt" <$> getCurrentDirectory
-  >>= readFile
 
 pDigits :: Parser [Int]
 pDigits = (fmap . fmap) digitToInt $ many1 digit
 
-parseSourceData :: String -> Either ParseError [Int]
-parseSourceData = parse pDigits []
-
-getSourceData :: IO (Either ParseError [Int])
-getSourceData = fmap parseSourceData readData
+sourceData :: IO (Either ParseError [Int])
+sourceData = fmap (parse pDigits) $ readData "data\\Day01.txt"
 
 -- Solution
  
@@ -35,16 +26,10 @@ equalToNext (a,b) = a == b
 getSum :: Int -> [Int] -> Int
 getSum shift = sum . fmap fst . filter equalToNext . getPairs shift
 
-solve :: [Int] -> (Int, Int)
-solve input = (partOne, partTwo)
-  where 
-    partOne = getSum 1 input
-    halfWay = quot ( length input ) 2
-    partTwo = getSum halfWay input
-
 main :: IO ()
 main = do
-  contents <- getSourceData
-  let part1 = fmap solve contents
-  putStrLn $ "(Part One, Part Two): " ++ (show part1)
-  return ()
+  contents <- sourceData
+  let (Right input) = contents
+  let partOne = getSum 1 input
+  let partTwo = getSum (quot (length input) 2) input
+  putStrLn $ "Day 01: (Part 1, Part 2) = " ++ (show (partOne, partTwo))
