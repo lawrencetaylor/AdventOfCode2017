@@ -19,7 +19,7 @@ pLines :: Parser [[Int]]
 pLines = sepBy pLine newline
 
 sourceData :: IO (Either ParseError [[Int]])
-sourceData = fmap (parse pLines) $ readData "data\\Day02.txt"
+sourceData = fmap (parse pLines) $ readData "data\\Day02"
 
 -- Solution
 

@@ -27,7 +27,7 @@ solve initial next = length $ unfoldr move (0, getInstructions initial)
 
 main :: IO ()
 main = do
-  input <- fmap ((fmap read) . lines) $ readData "data\\Day05.txt"
+  input <- fmap ((fmap read) . lines) $ readData "data\\Day05"
   let partOne = solve input nextPartOne
   let partTwo = solve input nextPartTwo
   putStrLn $ "Day 05: (Part 1, Part 2) = " ++ (show (partOne, partTwo))

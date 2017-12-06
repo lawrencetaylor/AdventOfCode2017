@@ -16,7 +16,7 @@ solve f str = length $ L.filter (areUnique . f) $ lines str
 
 main :: IO ()
 main = do
-  input <- readData "data\\Day04.txt"
+  input <- readData "data\\Day04"
   let partOne = solve words input
   let partTwo = solve (fmap sort . words) input
   putStrLn $ "Day 04: (Part 1, Part 2) = " ++ (show (partOne, partTwo))

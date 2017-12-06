@@ -11,7 +11,7 @@ pDigits :: Parser [Int]
 pDigits = (fmap . fmap) digitToInt $ many1 digit
 
 sourceData :: IO (Either ParseError [Int])
-sourceData = fmap (parse pDigits) $ readData "data\\Day01.txt"
+sourceData = fmap (parse pDigits) $ readData "data\\Day01"
 
 -- Solution
  

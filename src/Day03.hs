@@ -19,7 +19,6 @@ spiralLevel n (x,y)
   | x == -n && y > -n     = (-n, y-1)
   | x == -n && y == -n    = (-n+1, -n)
   | y == -n && x < n      = (x+1, -n)
-  | y == -n && x == -n    = (0,0)
 
 spiral :: [Position]
 spiral =  (0,0) : mconcat [ thisSpiral n | n <- [1..]]
