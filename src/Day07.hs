@@ -120,5 +120,5 @@ main = do
   let partTwoE = fmap (snd . wrongUnFixed . toWeightTree) tree
   (Right partOne) <- runEitherT partOneE
   (Right partTwo) <- runEitherT partTwoE
-  putStrLn $ "Day 05: (Part 1, Part 2) = " ++ (show (partOne, partTwo)) 
+  putStrLn $ "Day 07: (Part 1, Part 2) = " ++ (show (partOne, partTwo)) 
   return ()
