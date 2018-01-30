@@ -20,7 +20,11 @@ pRelationship = do
 
 -- Solution
 
-getConnected :: [(Int, Set Int)] -> Set Int -> [Int] -> Set Int
+type Connections = (Program, Set Program)
+type Program = Int
+type Group = Set Program
+
+getConnected :: [Connections] -> Set Program -> [Int] -> Set Program
 getConnected _ connected [] = connected 
 getConnected mappings seen (root : t) = 
   getConnected mappings (S.insert root seen) (t ++ notSeenYet)
@@ -28,16 +32,16 @@ getConnected mappings seen (root : t) =
     (Just children) = lookup root mappings
     notSeenYet = S.toList $ S.difference children seen
 
-getConnectedTo :: Int -> [(Int, Set Int)] -> Set Int
+getConnectedTo :: Program -> [Connections] -> Set Program
 getConnectedTo p mappings = getConnected mappings S.empty [p]
 
-aggGroups :: [(Int, Set Int)] -> [Set Int] -> Int -> [Set Int]
+aggGroups :: [Connections] -> [Group] -> Int -> [Group]
 aggGroups mappings groups prog =
   case any (S.member prog) groups of
     True -> groups
     False -> (getConnectedTo prog mappings):groups
 
-getGroups :: [(Int, Set Int)] -> [Set Int]
+getGroups :: [Connections] -> [Group]
 getGroups mappings = foldl (aggGroups mappings) [] allPrograms
   where
     allPrograms = fst <$> mappings

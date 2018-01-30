@@ -71,7 +71,6 @@ processLine m (reg, instruction , testReg, condition) =
     testValue = maybe 0 id (M.lookup testReg m)
     currentValue = maybe 0 id (M.lookup reg m)
       
-
 partOne :: [Instruction] -> [Map String Int]
 partOne = return . (L.foldl processLine M.empty)
 

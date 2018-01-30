@@ -1,20 +1,24 @@
+{-# LANGUAGE FlexibleContexts #-}
+
 module Day01 where
 
 import Common
 import Data.Char
 import Text.ParserCombinators.Parsec(Parser, ParseError)
 import Text.Parsec(many1, digit )
+import Control.Monad.Reader
+import Control.Monad.Trans.Either
 
 -- Parsing
 
 pDigits :: Parser [Int]
 pDigits = (fmap . fmap) digitToInt $ many1 digit
 
-sourceData :: IO (Either ParseError [Int])
-sourceData = fmap (parse pDigits) $ readData "data\\Day01"
+sourceData :: EitherT ParseError IO [Int]
+sourceData = EitherT $ fmap (parse pDigits) $ readData "data\\Day01"
 
 -- Solution
- 
+
 getPairs :: Int -> [a] -> [(a,a)]
 getPairs _ [] = []
 getPairs shift l = zip l shiftedList
@@ -23,13 +27,12 @@ getPairs shift l = zip l shiftedList
 equalToNext :: (Int,Int) -> Bool
 equalToNext (a,b) = a == b
 
-getSum :: Int -> [Int] -> Int
-getSum shift = sum . fmap fst . filter equalToNext . getPairs shift
+solve :: Int -> Reader [Int] Int
+solve shift = reader $ (sum . fmap fst . filter equalToNext . getPairs shift)
 
 main :: IO ()
 main = do
-  contents <- sourceData
-  let (Right input) = contents
-  let partOne = getSum 1 input
-  let partTwo = getSum (quot (length input) 2) input
+  input <- runEitherT sourceData
+  let partOne = fmap (runReader (solve 1)) input
+  let partTwo = fmap (runReader (solve $ quot (length input) 2)) input
   putStrLn $ "Day 01: (Part 1, Part 2) = " ++ (show (partOne, partTwo))

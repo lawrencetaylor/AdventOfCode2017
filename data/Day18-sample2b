@@ -1,0 +1,10 @@
+snd 1
+snd 2
+snd p
+rcv a
+rcv b
+rcv c
+snd 3
+rcv c
+set a p
+snd a

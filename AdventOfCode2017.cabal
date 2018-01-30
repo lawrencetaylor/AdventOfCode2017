@@ -28,6 +28,8 @@ library
                      , Day10
                      , Day11
                      , Day12
+                     , Day13
+                     , Day17
   build-depends:       base >= 4.7 && < 5
                      , containers
                      , split
@@ -37,6 +39,7 @@ library
                      , mtl
                      , transformers
                      , either
+                     , monad-loops
   default-language:    Haskell2010
  --
 executable AdventOfCode2017-exe

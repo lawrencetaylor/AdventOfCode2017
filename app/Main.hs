@@ -12,18 +12,20 @@ import qualified Day09 as D09
 import qualified Day10 as D10
 import qualified Day11 as D11
 import qualified Day12 as D12
+import qualified Day13 as D13
+import qualified Day17 as D17
 
 main :: IO ()
 main = do 
-  D01.main
-  D02.main
-  D03.main
-  D04.main
-  D05.main
-  D06.main
-  D07.main
-  D08.main
-  D09.main
-  D10.main
-  D11.main
-  D12.main
+  D13.main
+  -- D02.main
+  -- D03.main
+  -- D04.main
+  -- D05.main
+  -- D06.main
+  -- D07.main
+  -- D08.main
+  -- D09.main
+  -- D10.main
+  -- D11.main
+  -- D12.main
